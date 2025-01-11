@@ -16,5 +16,5 @@ steps:
     az deployment group create --resource-group MyResourceGroup --template-file storageAccounts.json
 
     echo "Deploying Linux Virtual Machine:"
-    az deployment group create --resource-group MyResourceGroup --template-file linuxVM.json
+    az deployment group create --resource-group MyResourceGroup --template-file linuxVM.json --parameters @linuxVm-parameters.json
   displayName: "Deploy Azure Resources"

@@ -18,8 +18,9 @@
       },
       "adminPublicKey": {
         "type": "string",
+        "defaultValue": "[concat('ssh-rsa ', uniqueString(resourceGroup().id), ' azure-generated-key')]",
         "metadata": {
-          "description": "SSH public key for accessing the VM."
+        "description": "The SSH public key to use for the virtual machine."
         }
       },
       "vmSize": {
