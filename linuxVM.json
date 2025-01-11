@@ -73,8 +73,8 @@
             "imageReference": {
               "publisher": "Canonical",
               "offer": "UbuntuServer",
-              "sku": "20_04-lts",
-              "version": "latest"
+              "sku": "18.04-LTS",
+              "version": "18.04.202306070"
             }
           },
           "networkProfile": {
