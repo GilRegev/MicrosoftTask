@@ -1,0 +1,20 @@
+trigger:
+- main  
+
+pool:
+  name: GilSelfHostedPool 
+
+steps:
+- script: |
+    echo "Logging in into Azure CLI:"
+    az login --use-device-code
+
+    echo "Creating Resource Group:"
+    az group create --name MyResourceGroup --location "East US"
+
+    echo "Deploying Storage Accounts:"
+    az deployment group create --resource-group MyResourceGroup --template-file storageAccounts.json
+
+    echo "Deploying Linux Virtual Machine:"
+    az deployment group create --resource-group MyResourceGroup --template-file linuxVM.json
+  displayName: "Deploy Azure Resources"
