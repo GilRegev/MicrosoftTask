@@ -8,7 +8,6 @@ variables:
   resourceGroupName: 'MyResourceGroup'
   storageAccountA: 'gilstorageisrael1'
   storageAccountB: 'gilstorageisrael2'
-  sasToken:
 
 steps:
 - script: |
@@ -29,5 +28,5 @@ steps:
 
 - script: |
     chmod +x ./blob_script.sh
-    ./blob_script.sh $(sasToken)
+    ./blob_script.sh $(SasToken)
   displayName: "Run the Blob Script"
