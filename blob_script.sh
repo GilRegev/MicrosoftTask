@@ -20,13 +20,13 @@ az storage container create --account-name $STORAGE_ACCOUNT_B --name $CONTAINER_
 # Generating Files
 echo "Generating test files..."
 mkdir -p blobs
-for i in {1..3}; do
+for i in {1..101}; do
   echo "This is blob $i" > blobs/blob$i.txt
 done
 
 # Uploading the Blobs to Storage Account A and checks if the operations succeeded
 echo "Uploading blobs to $STORAGE_ACCOUNT_A/$CONTAINER_A..."
-for i in {1..3}; do
+for i in {1..101}; do
   az storage blob upload \
     --account-name $STORAGE_ACCOUNT_A \
     --container-name $CONTAINER_A \
@@ -38,7 +38,7 @@ done
 # Copying the Blobs to Storage Account B and checks if the operations succeeded
 echo "Copying blobs to $STORAGE_ACCOUNT_B/$CONTAINER_B..."
 copy_successful=true
-for i in {1..3}; do
+for i in {1..101}; do
   az storage blob copy start \
     --destination-container $CONTAINER_B \
     --destination-blob blob$i.txt \
