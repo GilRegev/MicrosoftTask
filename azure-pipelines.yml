@@ -4,17 +4,30 @@ trigger:
 pool:
   name: GilSelfHostedPool 
 
+variables:
+  resourceGroupName: 'MyResourceGroup'
+  storageAccountA: 'gilstorageisrael1'
+  storageAccountB: 'gilstorageisrael2'
+  sasToken:
+
 steps:
 - script: |
-    echo "Logging in into Azure CLI:"
+    echo "Logging into Azure CLI:"
     az login --use-device-code
+  displayName: "Azure CLI Login"
 
+- script: |
     echo "Creating Resource Group:"
-    az group create --name MyResourceGroup --location "East US"
+    az group create --name $(resourceGroupName) --location "East US"
 
-    echo "Deploying Storage Accounts:"
-    az deployment group create --resource-group MyResourceGroup --template-file storageAccounts.json
+    echo "Deploying the Storage Accounts:"
+    az deployment group create --resource-group $(resourceGroupName) --template-file storageAccounts.json
 
-    echo "Deploying Linux Virtual Machine:"
-    az deployment group create --resource-group MyResourceGroup --template-file linuxVM.json --parameters @linuxVm-parameters.json
+    echo "Deploying the Linux Virtual Machine:"
+    az deployment group create --resource-group $(resourceGroupName) --template-file linuxVM.json --parameters @linuxVm-parameters.json
   displayName: "Deploy Azure Resources"
+
+- script: |
+    chmod +x ./blob_script.sh
+    ./blob_script.sh $(sasToken)
+  displayName: "Run the Blob Script"
